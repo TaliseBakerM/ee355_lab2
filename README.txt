@@ -12,3 +12,7 @@ Q1-Q3:
 - to run all of these at the same time (all are within 7755662598Lab2.cpp) run
 $ g++ 7755662598Lab2.cpp -o lab2.out
 $ ./lab2.out
+
+Q4:
+- to run, use this command:
+$ python3 7755662598Lab2.py

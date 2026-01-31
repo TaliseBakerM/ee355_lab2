@@ -72,9 +72,11 @@ class Matrix {
 		// Loop through
 		for (int i = 0; i < 10; i++) {
         	for (int j = 0; j < 10; j++) {
+				// if the new value is greater than the current max, update
             	if (value[i][j] > maximum) {
                 	maximum = value[i][j];
 				}
+				// if the new value is less than the current min, update
             	if (value[i][j] < minimum) {
 					minimum = value[i][j];
 				}
@@ -192,4 +194,5 @@ int main() {
 	prod.write_Q2_Q3_file("output_Q3.txt");
 
     return 0;
+	
 }
