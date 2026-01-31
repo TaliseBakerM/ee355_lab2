@@ -83,41 +83,93 @@ class Matrix {
 	}
 
 	// Function to send Q1 to files
-	void writeQ1File(string outputfile) {
+	void write_Q1_file(string filename) {
 		// Run the searches functions
 		linear_search();
     	max_min_search();
 
-		ofstream resultFile(outputfile);
+		ofstream outputFile(filename);
 
 		// Write that dashed line
-		resultFile << "-------------------------------------------------------------------------------" << "\n\n";
+		outputFile << "-------------------------------------------------------------------------------" << "\n\n";
 
 		if (target_row_idx != -1) {
-        	resultFile << "Target value in matrix is shown in row " << target_row_idx << "\n\n";
+        	outputFile << "Target value in matrix is shown in row " << target_row_idx << "\n\n";
     	} 	
 		else {
-        	resultFile << "Target value in matrix is not shown\n\n";
+        	outputFile << "Target value in matrix is not shown\n\n";
     	}
 
 
-		resultFile << "Maximum value is " << maximum << "\n\n";
-    	resultFile << "Minimum value is " << minimum << "\n\n";
+		outputFile << "Maximum value is " << maximum << "\n\n";
+    	outputFile << "Minimum value is " << minimum << "\n\n";
 
 		// Another dashed line
-		resultFile << "-------------------------------------------------------------------------------" << "\n\n";
+		outputFile << "-------------------------------------------------------------------------------" << "\n\n";
 
-		resultFile.close();
+		outputFile.close();
+	}
+
+
+	// Define the matrix addition function for Q2
+	Matrix mat_add(Matrix other_mat) {
+		Matrix sum;
+
+		// Use another loop for element wise addition
+		for (int i = 0; i < 10; i++) {
+        	for (int j = 0; j < 10; j++) {
+            	sum.value[i][j] = value[i][j] + other_mat.value[i][j];
+        	}
+    	}
+
+    	return sum;
 
 	}
 
+	// Define function to write Q2 file
+	void write_Q2_Q3_file(string filename) {
+		ofstream outputFile(filename);
+
+		// Write that dashed line
+		outputFile << "-------------------------------------------------------------------------------" << "\n\n";
+
+		// Put in the matrix seperated by a line for each row and a space for each entry in the row
+		for (int i = 0; i < 10; i++) {
+        	for (int j = 0; j < 10; j++) {
+            	outputFile << value[i][j] << " ";
+        	}
+        	outputFile << "\n\n";
+    	}
+
+		// Another dashed line
+		outputFile << "-------------------------------------------------------------------------------" << "\n\n";
+	
+		// Close file
+		outputFile.close();
+	}
+
+	Matrix mat_mul(Matrix other_mat) {
+		Matrix prod;
+
+		// loop through i and j
+		for (int i = 0; i < 10; i++) {
+        	for (int j = 0; j < 10; j++) {
+				// initially set the element to 0 before calculating it with a sum over r elements
+				prod.value[i][j] = 0;
+            	for (int r = 0; r < 10; r++) {
+                	prod.value[i][j] += value[i][r] * other_mat.value[r][j];
+            	}
+        	}
+    	}
+
+		return prod;
+	}
 
 
 };
 
 
 int main() {
-	cout << "start";
 	// Create two matrix objects
     Matrix matrix1, matrix2;
 
@@ -125,14 +177,19 @@ int main() {
     matrix1.readFile("matrix_1.txt");
     matrix2.readFile("matrix_2.txt");
 
-	cout << "Done w this";
-
 	// Write the Q1 files
-	matrix1.writeQ1File("output_Q1_1.txt");
-	matrix2.writeQ1File("output_Q1_2.txt");
+	matrix1.write_Q1_file("output_Q1_1.txt");
+	matrix2.write_Q1_file("output_Q1_2.txt");
 
-	cout << "Done";
+	// Write the Q2 file
+	Matrix sum;
+	sum = matrix1.mat_add(matrix2);
+	sum.write_Q2_Q3_file("output_Q2.txt");
     
+	// Write the Q3 file
+	Matrix prod;
+	prod = matrix1.mat_mul(matrix2);
+	prod.write_Q2_Q3_file("output_Q3.txt");
 
     return 0;
 }
