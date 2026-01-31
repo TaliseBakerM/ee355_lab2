@@ -88,7 +88,7 @@ class Matrix {
 		linear_search();
     	max_min_search();
 
-		fstream resultFile(outputfile);
+		ofstream resultFile(outputfile);
 
 		// Write that dashed line
 		resultFile << "-------------------------------------------------------------------------------" << "\n\n";
